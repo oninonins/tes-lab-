@@ -124,16 +124,22 @@ include 'includes/admin_sidebar.php';
                             ?>
                             <tr>
                                 <td><?php echo $no++; ?></td>
-                                <td>
-                                    <?php if ($row['gambar']): ?>
-                                    <img src="<?php echo BASE_URL; ?>/public/uploads/produk/<?php echo htmlspecialchars($row['gambar']); ?>" 
-                                         class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;">
-                                    <?php else: ?>
-                                    <div class="bg-secondary text-white d-flex align-items-center justify-content-center" 
-                                         style="width: 60px; height: 60px; border-radius: 5px;">
-                                        <i class="bi bi-box-seam"></i>
-                                    </div>
-                                    <?php endif; ?>
+                               <td>
+                                    <?php 
+                                    // LOGIKA BARU: Cek Gambar & Gunakan Default
+                                    if (!empty($row['gambar'])) {
+                                        $img_src = BASE_URL . '/public/uploads/produk/' . htmlspecialchars($row['gambar']);
+                                    } else {
+                                        $img_src = BASE_URL . '/public/img/no-image.png';
+                                    }
+                                    ?>
+                                    
+                                    <img src="<?php echo $img_src; ?>" 
+                                         class="img-thumbnail" 
+                                         style="width: 60px; height: 60px; object-fit: cover;"
+                                         alt="Produk"
+                                         /* SCRIPT ANTI-ERROR: Jika gambar rusak, ganti ke no-image.png */
+                                         onerror="this.onerror=null; this.src='<?php echo BASE_URL; ?>/public/img/no-image.png';">
                                 </td>
                                 <td><strong><?php echo htmlspecialchars($row['nama_produk']); ?></strong></td>
                                 <td><span class="badge bg-primary"><?php echo $row['tahun']; ?></span></td>

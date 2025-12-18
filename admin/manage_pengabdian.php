@@ -126,17 +126,21 @@ include 'includes/admin_sidebar.php';
                                 ?>
                                     <tr class="fade-in">
                                         <td><?php echo $no++; ?></td>
-                                        <td>
-                                            <?php if ($row['gambar']): ?>
-                                                <img src="<?php echo BASE_URL . '/public/uploads/pengabdian/' . htmlspecialchars($row['gambar']); ?>"
-                                                    alt="Gambar" class="img-thumbnail" style="width: 80px; height: 60px; object-fit: cover;">
-                                            <?php else: ?>
-                                                <div class="bg-secondary text-white d-flex align-items-center justify-content-center"
-                                                    style="width: 80px; height: 60px; border-radius: 5px;">
-                                                    <i class="bi bi-image fs-5"></i>
-                                                </div>
-                                            <?php endif; ?>
-                                        </td>
+                                       <td>
+                                    <?php 
+                                    if (!empty($row['gambar'])) {
+                                        $img_src = BASE_URL . '/public/uploads/pengabdian/' . htmlspecialchars($row['gambar']);
+                                    } else {
+                                        $img_src = BASE_URL . '/public/img/no-image.png';
+                                    }
+                                    ?>
+                                    
+                                    <img src="<?php echo $img_src; ?>" 
+                                         class="img-thumbnail" 
+                                         style="width: 80px; height: 60px; object-fit: cover;"
+                                         alt="Gambar"
+                                         onerror="this.onerror=null; this.src='<?php echo BASE_URL; ?>/public/img/no-image.png';">
+                                </td>
                                         <td>
                                             <strong><?php echo htmlspecialchars($row['judul']); ?></strong>
                                         </td>
